@@ -10,7 +10,7 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
     
-    let arrayItem = ["nguyen" , "nhu" , "kieu" , "bich" , "tram"]
+    var arrayItem = ["nguyen" , "nhu" , "kieu" , "bich" , "tram"]
     
     
     
@@ -39,12 +39,25 @@ class ToDoListViewController: UITableViewController {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
-        
-        
+  
     }
     
+    //MARK add new items
+    @IBAction func addButtonPress(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add item", style: .default) { (action) in
+            print(textField.text!)
+            self.arrayItem.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        alert.addAction(action)
+        alert.addTextField { (alertTextFile) in
+            alertTextFile.placeholder = "add new item"
+            textField = alertTextFile
+        }
+        present(alert, animated: true, completion: nil)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
